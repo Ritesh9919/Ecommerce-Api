@@ -9,14 +9,13 @@ const e = require('express');
 const checkPermission = require('../utils/checkPermissions');
 
 const getAllUser = async(req, res) => {
-    console.log(req.user);
     const user = await User.find({role:'user'}).select('-password');
     return res.status(StatusCodes.OK).json({user, count:user.length});
 }
 
 
 const getSingalUser = async(req, res) => {
-    console.log(req.user);
+  
     const {id:userId} = req.params;
     const users = await User.findOne({_id:userId}).select('-password');
     if(!users) {
