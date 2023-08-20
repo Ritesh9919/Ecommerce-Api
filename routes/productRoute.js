@@ -4,7 +4,7 @@ const productController = require('../controllers/productController');
 const {authenticateUser,authorizePermission} = require('../middleware/authentication');
 
 router.post('/', authenticateUser,authorizePermission('admin'),productController.createProduct);
-router.get('/', authenticateUser, authorizePermission('admin'),productController.getAllProducts);
+router.get('/', productController.getAllProducts);
 router.post('/uploadImage', authenticateUser, authorizePermission('admin'),productController.uploadImage);
 router.get('/:id', productController.getSingalProduct);
 router.patch('/:id', authenticateUser, authorizePermission('admin'),productController.updateProduct);
