@@ -20,7 +20,7 @@ const productSchema = new mongoose.Schema({
     },
     image:{
         type:String,
-        default:'/upload/example.jpg',
+        default:'/uploads/example.jpg',
     },
     category:{
         type:String,

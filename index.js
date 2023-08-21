@@ -4,6 +4,7 @@ const port = 8000;
 require('express-async-errors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const fileUpload = require('express-fileupload');
 const connectDB = require('./db/mongoose');
 const errorHandlerMiddleware = require('./middleware/error_handler');
 const notFound = require('./middleware/not_found');
@@ -13,17 +14,13 @@ const app = express();
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
+app.use(express.static('./public'));
+app.use(fileUpload());
 
-
-
-app.get('/', (req, res) => {
-    return res.send('E-commerce-api');
-})
 
 
 app.get('/api/v1', (req, res) => {
-    console.log(req.signedCookies);
-    return res.send('Cookie');
+    return res.send('Hello world');
 })
 
 // routers
@@ -41,6 +38,7 @@ const start = async() => {
    })
 } catch(err) {
     console.log(err);
+    return;
 }
 }
 
