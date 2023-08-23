@@ -1,6 +1,6 @@
 const express = require('express');
 require('dotenv').config();
-const port = 8000;
+const port = process.env.PORT || 8000;
 require('express-async-errors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
