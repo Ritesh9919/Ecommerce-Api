@@ -9,8 +9,26 @@ const connectDB = require('./db/mongoose');
 const errorHandlerMiddleware = require('./middleware/error_handler');
 const notFound = require('./middleware/not_found');
 
+
 const app = express();
-// middleware
+
+const rateLimiter = require('express-rate-limit');
+const cors = require('cors');
+const helmet = require('helmet');
+const xss = require('xss-clean');
+const mongoSanitize = require('express-mongo-sanitize');
+
+app.set('trust proxy', 1);
+app.use(rateLimiter({
+    windowMs:15 * 60 * 1000,
+    max:60
+}));
+
+app.use(cors());
+app.use(helmet());
+app.use(xss());
+app.use(mongoSanitize());
+
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
